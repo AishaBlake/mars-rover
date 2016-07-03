@@ -8,6 +8,16 @@ describe('DL Mars Rover', function(){
   });
 });
 
+describe('Planet', function(){
+  it('should have a width', function() {
+    expect(planet.width).not.toBe(null);
+  });
+
+  it('should have a height', function() {
+    expect(planet.height).not.toBe(null);
+  });
+});
+
 describe('Given start position [0,0] and direction "N",', function(){
 
   // Direction
@@ -49,5 +59,19 @@ describe('Given start position [0,0] and direction "N",', function(){
     rover.dropRover([0,0], "N");
     journey(['f','r','f','r','f','f','f','f','l','f','f','l','b','r','b']);
     expect(rover.position).toEqual([2,-4]);
+  });
+
+  it('should appear on the bottom of the grid when it goes off the top', function() {
+    planet.buildWorld(5, 5);
+    rover.dropRover([0,0], "N");
+    journey(['f','f','f','f','f','f','f','f']);
+    expect(rover.position).toEqual([0,-3]);
+  });
+
+  it('should appear on the left side of the grid when it goes off the right side', function() {
+    planet.buildWorld(5, 5);
+    rover.dropRover([0,0], "N");
+    journey(['r','f','f','f','f','f','f','f']);
+    expect(rover.position).toEqual([-4,0]);
   });
 });

@@ -1,12 +1,29 @@
 var compass = ["N", "E", "S", "W"];
 
+var planet = {
+  width: 5,
+  height: 5,
+  getWidth: function() {
+    return this.width;
+  },
+  setWidth: function(width) {
+    this.width = width;
+  },
+  getHeight: function() {
+    return this.height;
+  },
+  setHeight: function(height) {
+    this.height = height;
+  },
+  buildWorld: function(startingWidth, startingHeight) {
+    this.setWidth(startingWidth);
+    this.setHeight(startingHeight);
+  }
+};
+
 var rover = {
   position: [0, 0],
   direction: "N",
-  dropRover: function (startingPoint, startingDirection){
-    this.position = startingPoint;
-    this.direction = startingDirection;
-  },
   getPosition: function (){
     return this.position;
   },
@@ -18,6 +35,10 @@ var rover = {
   },
   setDirection: function(newDir) {
     this.direction = newDir;
+  },
+  dropRover: function (startingPoint, startingDirection){
+    this.setPosition(startingPoint);
+    this.setDirection(startingDirection);
   },
   turn: function(command) {
     var currentDir = compass.indexOf(this.getDirection());
@@ -43,13 +64,13 @@ var rover = {
 
     if (command === 'f') {
       if (this.direction === 'N') {
-        y += 1;
+        y === planet.height ? y = -(planet.height) : y += 1;
       } else if (this.direction === 'S') {
-        y -= 1;
+        y === -(planet.height) ? y = planet.height : y -= 1;
       } else if (this.direction === 'E') {
-        x += 1;
+        x === planet.width ? x = -(planet.width) : x += 1;
       } else if (this.direction === 'W') {
-        x -= 1;
+        x === -(planet.width) ? x = planet.width : x -= 1;
       }
     } else {
       if (this.direction === 'N') {
