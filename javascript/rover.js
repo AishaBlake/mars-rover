@@ -37,6 +37,7 @@ var planet = {
 var rover = {
   position: [0, 0],
   direction: "N",
+  freeToMove: true,
   getPosition: function (){
     return this.position;
   },
@@ -99,7 +100,8 @@ var rover = {
     if (planet.isClear(x,y)) {
       this.setPosition([x,y]);
     } else {
-      console.error("Careful! There's an obstacle in the rover's path. It's gone as far as it can go. Please provide revised directions.");
+      console.error("Careful! There's an obstacle in the rover's path at [" + x + "," + y + "]. It's gone as far as it can go. Please provide revised directions.");
+      this.freeToMove = false;
     }
   }
 };
@@ -110,7 +112,10 @@ var journey = function(commands) {
     if (command === 'l' || command === 'r') {
       rover.turn(command);
     } else if (command === 'f' || command === 'b') {
-      rover.move(command);
+      if (rover.freeToMove) {
+        rover.move(command);
+      }
+      return;
     } else {
       console.log("There was a problem with the array of commands. Please review and resubmit.");
     }
