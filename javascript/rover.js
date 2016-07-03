@@ -24,7 +24,13 @@ var planet = {
     this.blockedTerrain = arr;
   },
   isClear: function(x,y) {
-    return this.blockedTerrain.indexOf([x,y]) === -1;
+    result = true;
+    this.blockedTerrain.forEach(function(blockedPoint) {
+      if (blockedPoint[0] === x && blockedPoint[1] === y) {
+        result = false;
+      }
+    });
+    return result;
   }
 };
 
