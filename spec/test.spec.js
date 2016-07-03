@@ -74,4 +74,11 @@ describe('Given start position [0,0] and direction "N",', function(){
     journey(['r','f','f','f','f','f','f','f']);
     expect(rover.position).toEqual([-4,0]);
   });
+
+  it('should stop and return a message when it runs into obstacles', function() {
+    planet.setObstacles([[3,0]]);
+    rover.dropRover([0,0], "N");
+    journey(['r','f','f','f','f','f','f','f']);
+    expect(rover.position).toEqual([2,0]);
+  });
 });

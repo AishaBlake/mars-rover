@@ -18,6 +18,13 @@ var planet = {
   buildWorld: function(startingWidth, startingHeight) {
     this.setWidth(startingWidth);
     this.setHeight(startingHeight);
+  },
+  blockedTerrain: [],
+  setObstacles: function(arr) {
+    this.blockedTerrain = arr;
+  },
+  isClear: function(x,y) {
+    return this.blockedTerrain.indexOf([x,y]) === -1;
   }
 };
 
@@ -83,8 +90,11 @@ var rover = {
         x += 1;
       }
     }
-
-    this.setPosition([x,y]);
+    if (planet.isClear(x,y)) {
+      this.setPosition([x,y]);
+    } else {
+      console.error("Careful! There's an obstacle in the rover's path. It's gone as far as it can go. Please provide revised directions.");
+    }
   }
 };
 
