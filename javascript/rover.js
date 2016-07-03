@@ -21,7 +21,6 @@ var rover = {
   },
   turn: function(command) {
     var currentDir = compass.indexOf(this.getDirection());
-    console.log(currentDir);
     var newDir;
     if (command === 'r') {
       if (currentDir === 3) {
@@ -36,7 +35,6 @@ var rover = {
         newDir = currentDir - 1;
       }
     }
-    console.log(newDir);
     this.setDirection(compass[newDir]);
   },
   move: function(command) {
